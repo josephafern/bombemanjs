@@ -1,5 +1,6 @@
 const Board = require("./board.js");
 const Bomber = require("./bomber.js");
+const RobotBomber = require("./robot_bomber.js");
 
 let board;
 let bomber;
@@ -14,9 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
     background.width = 850;
     background.height = 650;
     board = new Board();
-    bomber = new Bomber({ pos: [50, 50], vel: [0, 0], color: 'white', board: board });
-    bomber.createBomber();    
-    board.addBomber(bomber);
+    bomber = new Bomber({pos: [50, 50], color: 'white', board: board});
+    robot = new RobotBomber({ pos: [750, 550], color: 'black', board: board});
+    bomber.createBomber();
+    robot.createBomber();    
+    board.addBomber(bomber).addBomber(robot);
     board.initializeBoard(backCtx);
     board.draw(ctx);
 });
@@ -45,7 +48,7 @@ document.addEventListener("keydown", (e) => {
             board.draw(ctx);
             break;
         case " ":
-            bomber.dropBomb();
+            bomber.dropBomb(ctx);
             board.draw(ctx);
             break;
     }
