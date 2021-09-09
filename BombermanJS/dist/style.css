@@ -1,0 +1,177 @@
+#game-canvas {
+    border: 5px solid black;
+    display: none;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    z-index: 2;
+}
+
+#background {
+    border: 5px solid black;
+    background-color: green;
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    bottom: 660px;
+    z-index: 1;
+}
+
+#game-over {
+    display: none;
+    text-align: center;
+}
+
+#splash-screen {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+#splash-screen p {
+    font-family: Noteworthy, sans-serif;
+    font-size: 20px;
+    color: teal;
+}
+
+p span{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+span a {
+    
+}
+
+#home {
+    text-decoration: none;
+    color: inherit;
+}
+
+#home:hover {
+    color: darkorange
+}
+
+#header {
+    background-color: teal;
+    height: 40px;
+    padding-top: 10px;
+    margin: 0;
+    color: gold;
+    border: 3px solid black;
+    border-left: none;
+    border-right: none;
+    font-family: Noteworthy, sans-serif;
+}
+
+#logo {
+    margin-top: 150px;
+    margin-bottom: 30px;
+}
+
+#mute {
+    display: inline-block;
+    cursor: pointer;
+    background-color: rgb(0, 193, 193);
+    font-size: 14px;
+    font-family: "Noteworthy", sans-serif;
+    border: 3px solid rgb(0, 79, 79);
+    border-radius: 10px;
+    color: rgb(0, 79, 79);
+    width: 35px;
+    height: 20px;
+    padding-bottom: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+#mute:hover {
+    background-color: rgb(0, 79, 79);
+    color: white;
+}
+#gameover-img {
+    width: 300px;
+    height: 300px;
+    margin-top: 200px;
+}
+
+#instructions {
+    display:none;
+    text-align: center;
+    background-color: rgb(127, 232, 232);
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+#instructions h1 {
+    font-family: Noteworthy, sans-serif;
+    font-size: 50px;
+    color: teal;
+}
+
+#instructions h2 {
+    font-family: Noteworthy, sans-serif;
+    font-size: 30px;
+    color: teal;
+}
+
+ul {
+    text-align: center;
+    list-style: none;
+    padding-right: 40px;
+    font-family: Noteworthy, sans-serif;
+    font-size: 20px;
+    color: teal;
+}
+
+.enter-btn {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid teal;
+    border-radius: 10px;
+    color: teal;
+    height: 45px;
+    width: 70px;
+    cursor: pointer;
+    font-family: "Noteworthy", sans-serif;
+    font-size: 25px;
+}
+
+.enter-btn:hover {
+    background-color: teal;
+    color: white;
+}
+
+#start-btn {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid teal;
+    border-radius: 10px;
+    color: teal;
+    height: 45px;
+    width: 80px;
+    cursor: pointer;
+    font-family: "Noteworthy", sans-serif;
+    font-size: 25px;
+    text-align: center;
+}
+
+#start-btn:hover {
+    background-color: teal;
+    color: white;
+}
+
+body {
+    margin: 0;
+}

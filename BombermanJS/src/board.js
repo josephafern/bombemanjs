@@ -9,6 +9,7 @@ const BRICK_PRESETS = {
   [500, 550], [550, 550], [600, 550], [450, 400], [450, 350], [500, 350],
   [550, 350], [550, 300]]
 };
+const IMGS = ['./game-over-1.png', './game-over-2.png'];
 
 function Board(){
   this.walls = [];
@@ -17,6 +18,7 @@ function Board(){
   this.flames = [];
   this.field_blocks = [];
   this.bricks = BRICK_PRESETS.one;
+  this.gameOver = false;
   this.instantiateFlames();
   this.instantiateBrick();
 }
@@ -25,9 +27,6 @@ Board.prototype.draw = function(ctx){
   ctx.clearRect(0, 0, 850, 650);
   this.bombs.forEach(bomb => {
     bomb.draw(ctx);
-  });
-  this.bombers.forEach(bomber => {
-    bomber.draw(ctx);
   });
   this.bricks.forEach(brick => {
     ctx.drawImage(this.brickImg, brick[0], brick[1], 50, 50);
@@ -39,8 +38,11 @@ Board.prototype.draw = function(ctx){
     setTimeout(() => {
       this.flames = [];
       this.draw(ctx);
-    }, 500);
+    }, 300);
   }
+  this.bombers.forEach(bomber => {
+    bomber.draw(ctx);
+  });
 }
 
 Board.prototype.instantiateBrick = function(){
@@ -105,6 +107,10 @@ Board.prototype.addBomber = function(bomber){
   return this;
 }
 
+Board.prototype.removeBomber = function(color){
+  this.bombers = this.bombers.filter(bomber => bomber.color !== color);
+}
+
 
 
 Board.prototype.isExploded = function(bombPos) {
@@ -159,6 +165,7 @@ Board.prototype.validMove = function(pos, bricks = [], bombs = []) {
 }
  
 Board.prototype.endGame = function (bombers) {
+  this.gameOver = true;
   let ele1 = document.getElementById('game-canvas');
   let ele2 = document.getElementById('background');
   let ele3 = document.getElementById('game-over');
@@ -166,12 +173,19 @@ Board.prototype.endGame = function (bombers) {
   ele2.style = 'display: none';
   ele3.style = 'display: block';
   let words = document.createElement('p');
+  words.style = 'font-family: Noteworthy, sans-serif; font-size: 20px; color: teal;';
   if (bombers.length > 1) {
     words.innerText = 'It\'s a draw!!'
   } else {
     words.innerText = this.oppositeColor(bombers[0].color) + ' Bomber is the winner!!';
   }
   ele3.append(words);
+  setInterval(() => {
+    let img = document.getElementById('gameover-img');
+    let next = IMGS.shift();
+    img.src = next;
+    IMGS.push(next);
+  }, 750);
 }
 
 Board.prototype.oppositeColor = function (color) {
@@ -219,6 +233,8 @@ Board.prototype.vectoredPositions = function(bomber){
 
 Board.prototype.runLoop = function (bomber, ctx) {
   setInterval(() => {
+    if (this.gameOver) return;
+    console.log('hit')
     let moves = this.availableMoves(bomber);
     let move;
     while (true) {

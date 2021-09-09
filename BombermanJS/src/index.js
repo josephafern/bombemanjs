@@ -62,7 +62,7 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener('click', (e) => {
     if (e.target.id === "start-btn") {
-        let ele = document.getElementById('splash-screen');
+        let ele = document.getElementById('instructions');
         let ele2 = document.getElementById('game-canvas');
         let ctx = ele2.getContext('2d');
         let ele3 = document.getElementById('background');
@@ -78,7 +78,12 @@ document.addEventListener('click', (e) => {
         if (vol) {
             ele.volume = 0.0;
         } else {
-            ele.volume = 0.1;
+            ele.volume = 0.25;
         }
+    } else if (e.target.id === 'enter-btn'){
+        let ele = document.getElementById('splash-screen');
+        let ele2 = document.getElementById('instructions');
+        ele.style = 'display: none';
+        ele2.style = 'display: block';
     }
 })

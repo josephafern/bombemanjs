@@ -26,7 +26,6 @@ Bomber.prototype.move = function(pos){
     let newX = this.pos[0] + pos[0];
     let newY = this.pos[1] + pos[1];
     if (this.board.validMove([newX, newY], this.board.bricks, this.board.bombPositions())){
-        console.log('here')
         this.pos[0] += pos[0];
         this.pos[1] += pos[1];
     }
