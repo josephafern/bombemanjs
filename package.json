@@ -1,0 +1,22 @@
+{
+  "name": "bombemanjs",
+  "version": "1.0.0",
+  "description": "BombermanJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephafern/bombemanjs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josephafern/bombemanjs/issues"
+  },
+  "homepage": "https://github.com/josephafern/bombemanjs#readme"
+}
