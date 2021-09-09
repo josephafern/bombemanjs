@@ -14,6 +14,10 @@ const BRICK_PRESETS = {
 };
 const IMGS = ['./dist/game-over-1.png', './dist/game-over-2.png'];
 
+const exp_sound = new Audio('./dist/exp_sound.mp3');
+exp_sound.id = 'exp-sound';
+exp_sound.volume = 0.05;
+
 function Board(){
   this.walls = [];
   this.bombers = [];
@@ -44,6 +48,7 @@ Board.prototype.draw = function(ctx){
     this.flames.forEach(flame => {
       ctx.drawImage(this.flameImg, flame[0], flame[1], 50, 50);
     });
+    exp_sound.play();
     setTimeout(() => {
       this.flames = [];
       this.draw(ctx);
@@ -117,6 +122,10 @@ Board.prototype.initializeBoard = function(ctx){
   }
 }
 
+Board.prototype.audioObj = function(){
+  return exp_sound;
+}
+
 Board.prototype.addBomber = function(bomber){
   this.bombers.push(bomber);
   return this;
@@ -166,7 +175,7 @@ Board.prototype.calculateBombRange = function(bombPos, poweredUp) {
   let that = this;
   let fullArr;
   if (poweredUp) {
-    fullArr = BOMB_VECS.concat(POWERED);
+    fullArr = this.powerUpPositions(bombPos);
   } else {
     fullArr = BOMB_VECS;
   }
@@ -176,6 +185,28 @@ Board.prototype.calculateBombRange = function(bombPos, poweredUp) {
     return [x, y];
   });
   return newPosArr.filter(pos => that.validMove(pos));
+}
+
+Board.prototype.powerUpPositions = function(bombPos){
+  let that = this;
+  let newPosArr = BOMB_VECS.filter(vec => {
+    let x = vec[0] + bombPos[0];
+    let y = vec[1] + bombPos[1];
+    return that.validMove([x, y]);
+  });
+  let res = newPosArr;
+  newPosArr.forEach(pos => {
+    if (pos[0] > 0){
+      res.push([pos[0] + 50, 0]);
+    } else if (pos[0] < 0) {
+      res.push([pos[0] - 50, 0]);
+    } else if (pos[1] > 0){
+      res.push([0, pos[1] + 50]);
+    } else {
+      res.push([0, pos[1] - 50]);
+    }
+  });
+  return res;
 }
 
 Board.prototype.validMove = function(pos, bricks = [], bombs = []) {
