@@ -1,5 +1,7 @@
 const Bomber = require('./bomber.js');
 
+const VECS = [[50, 0], [-50, 0], [0, 50], [0, -50]];
+
 function RobotBomber(info){
     Bomber.call(this, info);
 }

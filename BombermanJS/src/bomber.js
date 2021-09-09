@@ -22,9 +22,11 @@ Bomber.prototype.createBomber = function(){
 }
 
 Bomber.prototype.move = function(pos){
+    
     let newX = this.pos[0] + pos[0];
     let newY = this.pos[1] + pos[1];
-    if (this.board.validMove([newX, newY], this.board.bricks)){
+    if (this.board.validMove([newX, newY], this.board.bricks, this.board.bombPositions())){
+        console.log('here')
         this.pos[0] += pos[0];
         this.pos[1] += pos[1];
     }
@@ -44,7 +46,10 @@ Bomber.prototype.dropBomb = function(ctx){
         setTimeout(() => {
             let bomb = that.board.bombs.shift();
             bomb.style = 'display:none';
-            that.board.isExploded(bomb.pos);
+            let dead = that.board.isExploded(bomb.pos);
+            if (dead.length) {
+                that.board.endGame(dead);
+            }
             this.bombDropped = false;
             that.board.draw(ctx);
         }, 3000);

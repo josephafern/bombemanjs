@@ -1,40 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BombermanJS</title>
 </head>
-<body>
+
+<body id='body'>
     <style>
         #game-canvas {
             border: 5px solid black;
             display: none;
-            position: absolute;
-            z-index: 1;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 60px;
+            z-index: 2;
         }
+
         #background {
             border: 5px solid black;
             background-color: green;
             display: none;
-            z-index: 2;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            bottom: 660px;
+            z-index: 1;
         }
-        #bombs{
+
+        #game-over {
             display: none;
-            position: fixed;
-            top: 13px;
-            left: 13px;
-            z-index: 3; 
+        }
+
+        #splash-screen {
+            display: grid;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #home {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        #home:hover {
+            color: darkorange
+        }
+
+        #header {
+            background-color: teal;
+            height: 40px;
+            padding-top: 10px;
+            margin: 0;
+            color: gold;
+            border: 3px solid black;
+            border-left: none;
+            border-right: none;
+        }
+
+        #logo {
+            margin-top: 150px;
+        }
+
+        #mute {
+            display: inline-block;
+            cursor: pointer;
+            background-color: rgb(0, 193, 193);
+            font-size: 14px;
+            font-family: "Noteworthy", sans-serif;
+            border: 3px solid rgb(0, 79, 79);
+            border-radius: 10px;
+            color: rgb(0, 79, 79);
+            width: 35px;
+            height: 20px;
+            padding-bottom: 4px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        #mute:hover {
+            background-color: rgb(0, 79, 79);
+            color: white;
+        }
+
+        .enter-btn {
+            margin-top: 80px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 5px solid teal;
+            border-radius: 10px;
+            color: teal;
+            height: 45px;
+            width: 70px;
+            cursor: pointer;
+            font-family: "Noteworthy", sans-serif;
+            font-size: 25px;
+        }
+
+        .enter-btn:hover {
+            background-color: teal;
+            color: white;
+        }
+
+        body {
+            margin: 0;
         }
     </style>
     <script src="./main.js"></script>
-    <div id="SplashScreen">
-        <h1>BombermanJS</h1>
-        <input id="StartButton" type="button" value="Start" />
+    <h3 id='header'><a id='home' href="./index.html">&nbsp;&nbsp;BombermanJS</a> &nbsp;&nbsp;
+        <div id="mute">Mute</div>
+    </h3>
+    <div id="splash-screen">
+        <img id='logo' src="./logo.png" width=600 height=250>
+        <div class='enter-btn' id="start-btn">Enter</div>
+
     </div>
+    <div id></div>
+
     <canvas id="game-canvas"></canvas>
     <canvas id='background'></canvas>
-    <canvas id='bombs'></canvas>
+
+    <div id='game-over'>
+        <h1>Game Over!</h1>
+    </div>
+    <audio id="theme-song" autoplay loop muted>
+        <source src="./bomberman.mp3" type='audio/mp3'>
+    </audio>
+    <script>
+        document.getElementById('theme-song').volume = 0.1;
+    </script>
 </body>
+
 </html>

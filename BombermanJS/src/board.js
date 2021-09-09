@@ -1,4 +1,4 @@
-const Block = require("./block.js");
+
 
 const BOMB_VECS = [[50, 0], [-50, 0], [0, 50], [0, -50]];
 const BRICK_PRESETS = {
@@ -108,21 +108,21 @@ Board.prototype.addBomber = function(bomber){
 
 
 Board.prototype.isExploded = function(bombPos) {
+  let dead = [];
   let that = this;
   let bombRange = this.calculateBombRange(bombPos)
   this.removeBricks(bombRange);
   this.flames = bombRange;
   bombRange.push(bombPos);
-  let hit = false;
   bombRange.forEach(pos => {
     that.bombers.forEach(bomber => {
       if (pos[0] === bomber.pos[0] && pos[1] === bomber.pos[1]) {
         alert('HIT!!');
-        hit = true;
+        dead.push(bomber);
       }
     });
   });
-  return hit;
+  return dead;
 }
 
 Board.prototype.removeBricks = function(bombRange){
@@ -148,8 +148,9 @@ Board.prototype.calculateBombRange = function(bombPos) {
   return newPosArr.filter(pos => that.validMove(pos));
 }
 
-Board.prototype.validMove = function(pos, bricks = []) {
-  return !(this.field_blocks.concat(bricks)).some(blockPos => {
+Board.prototype.validMove = function(pos, bricks = [], bombs = []) {
+  if (pos[0] > 750 || pos[0] < 50 || pos[1] > 550 || pos[1] < 50) return false;
+  return !(this.field_blocks.concat(bricks, bombs)).some(blockPos => {
     let flag = true;
     pos.forEach((item, i) => {
       if (item !== blockPos[i]) flag = false;
@@ -157,9 +158,106 @@ Board.prototype.validMove = function(pos, bricks = []) {
     return flag;
   });
 }
+ 
+Board.prototype.endGame = function (bombers) {
+  let ele1 = document.getElementById('game-canvas');
+  let ele2 = document.getElementById('background');
+  let ele3 = document.getElementById('game-over');
+  ele1.style = 'display: none';
+  ele2.style = 'display: none';
+  ele3.style = 'display: block';
+  let words = document.createElement('p');
+  if (bombers.length > 1) {
+    words.innerText = 'It\'s a draw!!'
+  } else {
+    words.innerText = this.oppositeColor(bombers[0].color) + ' Bomber is the winner!!';
+  }
+  ele3.append(words);
+}
+
+Board.prototype.oppositeColor = function (color) {
+  switch (color) {
+    case 'White':
+      return 'Black';
+    case 'Black':
+      return 'White';
+  }
+}
+
+Board.prototype.bombPositions = function () {
+    return this.bombs.map(bomb => bomb.pos);
+}
   
+Board.prototype.explosionPositions = function () {
+    let danger = [];
+    this.bombPositions().forEach(pos => {
+        danger.concat(this.calculateBombRange(pos));
+    });
+    return danger;
+}
+
+Board.prototype.inBombRange = function (nextPos) {
+    return this.explosionPositions().some(pos => {
+        return pos[0] === nextPos[0] && pos[1] === nextPos[1];
+    });
+}
+
+Board.prototype.availableMoves = function (bomber) {
+    let moves = this.vectoredPositions(bomber);
+    return moves.filter(pos => {
+      return this.validMove(pos, this.bricks, this.bombPositions());
+    });
+}
+
+Board.prototype.vectoredPositions = function(bomber){
+  return BOMB_VECS.map(pos => {
     
-    
+    let x = bomber.pos[0] + pos[0];
+    let y = bomber.pos[1] + pos[1];
+    return [x, y];
+  })
+}
+
+Board.prototype.runLoop = function (bomber, ctx) {
+  setInterval(() => {
+    let moves = this.availableMoves(bomber);
+    let move;
+    while (true) {
+      move = moves[getRandomInt(moves.length)]
+      if (!this.inBombRange(move)) {
+        break;
+      }
+    }
+    if (move) {
+      if (this.brickAdjacent(bomber)){
+        bomber.dropBomb(ctx);
+        this.draw(ctx);
+      }
+      bomber.move([move[0] - bomber.pos[0], move[1] - bomber.pos[1]]);
+      this.draw(ctx);
+    }
+  }, 500);
+}
+
+Board.prototype.brickAdjacent = function(bomber){
+  let flag = false;
+  this.vectoredPositions(bomber).forEach(pos => {
+    this.bricks.forEach(brickPos => {
+      if (this.samePos(pos, brickPos)){
+        flag = true;
+      }
+    });
+  });
+  return flag;
+}
+
+Board.prototype.samePos = function(pos1, pos2){
+  return pos1[0] === pos2[0] && pos1[1] === pos2[1];
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
   
 
 
