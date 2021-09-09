@@ -185,13 +185,13 @@ Board.prototype.endGame = function (bombers) {
   if (!this.finished){
     ele3.append(words);
     this.finished = true;
+    setInterval(() => {
+      let img = document.getElementById('gameover-img');
+      let next = IMGS.shift();
+      img.src = next;
+      IMGS.push(next);
+    }, 750);
   } 
-  setInterval(() => {
-    let img = document.getElementById('gameover-img');
-    let next = IMGS.shift();
-    img.src = next;
-    IMGS.push(next);
-  }, 750);
 }
 
 Board.prototype.oppositeColor = function (color) {
