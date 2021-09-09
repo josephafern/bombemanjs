@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
     board = new Board();
     bomber = new Bomber({pos: [50, 50], color: 'White', board: board});
     robot = new RobotBomber({ pos: [750, 550], color: 'Black', board: board});
-    bomber.createBomber();
-    robot.createBomber();    
+    bomber.createBomber('../dist/bomber.png');
+    robot.createBomber('../dist/bomber2.png');
     board.addBomber(bomber).addBomber(robot);
     board.initializeBoard(backCtx);
     board.draw(ctx);

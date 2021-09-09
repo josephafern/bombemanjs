@@ -13,11 +13,11 @@ Bomber.prototype.draw = function(context){
     context.drawImage(this.img, this.pos[0], this.pos[1], 50, 50);
 }
 
-Bomber.prototype.createBomber = function(){
+Bomber.prototype.createBomber = function(url){
     let img = new Image();
     let x = this.pos[0];
     let y = this.pos[1];
-    img.src = '../dist/bomber.png';
+    img.src = url;
     this.img = img;
 }
 

@@ -117,7 +117,6 @@ Board.prototype.isExploded = function(bombPos) {
   bombRange.forEach(pos => {
     that.bombers.forEach(bomber => {
       if (pos[0] === bomber.pos[0] && pos[1] === bomber.pos[1]) {
-        alert('HIT!!');
         dead.push(bomber);
       }
     });
