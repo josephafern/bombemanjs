@@ -9,7 +9,7 @@ const BRICK_PRESETS = {
   [500, 550], [550, 550], [600, 550], [450, 400], [450, 350], [500, 350],
   [550, 350], [550, 300]]
 };
-const IMGS = ['./game-over-1.png', './game-over-2.png'];
+const IMGS = ['./dist/game-over-1.png', './dist/game-over-2.png'];
 
 function Board(){
   this.walls = [];
@@ -47,13 +47,13 @@ Board.prototype.draw = function(ctx){
 
 Board.prototype.instantiateBrick = function(){
   let img = new Image();
-  img.src = '../dist/brick.png';
+  img.src = './dist/brick.png';
   this.brickImg = img;
 }
 
 Board.prototype.instantiateFlames = function(){
   let img = new Image();
-  img.src = '../dist/explosion.png';
+  img.src = './dist/explosion.png';
   this.flameImg = img;
 }
 
@@ -64,7 +64,7 @@ Board.prototype.initializeBoard = function(ctx){
     char.onload = function () {
       ctx.drawImage(this, (50 * i), 0, 50, 50);
     };
-    char.src = '../dist/stone.png';
+    char.src = './dist/stone.png';
   }
   for (let i = 0; i < 17; i++) {
     this.field_blocks.push([i * 50, 600]);
@@ -72,7 +72,7 @@ Board.prototype.initializeBoard = function(ctx){
     char.onload = function () {
       ctx.drawImage(this, (50 * i), 600, 50, 50);
     };
-    char.src = '../dist/stone.png';
+    char.src = './dist/stone.png';
   }
   for (let i = 0; i < 12; i++) {
     this.field_blocks.push([0, i * 50]);
@@ -80,7 +80,7 @@ Board.prototype.initializeBoard = function(ctx){
     char.onload = function () {
       ctx.drawImage(this, 0, (50 * i), 50, 50);
     };
-    char.src = '../dist/stone.png';
+    char.src = './dist/stone.png';
   }
   for (let i = 0; i < 12; i++) {
     this.field_blocks.push([800, i * 50]);
@@ -88,7 +88,7 @@ Board.prototype.initializeBoard = function(ctx){
     char.onload = function () {
       ctx.drawImage(this, 800, (50 * i), 50, 50);
     };
-    char.src = '../dist/stone.png';
+    char.src = './dist/stone.png';
   }
   for (let i = 1; i < 8; i++) {
     for (let j = 1; j < 6; j++) {
@@ -97,7 +97,7 @@ Board.prototype.initializeBoard = function(ctx){
       char.onload = function () {
         ctx.drawImage(this, i * 100, j * 100, 50, 50);
       };
-      char.src = '../dist/stone.png';
+      char.src = './dist/stone.png';
     }
   }
 }

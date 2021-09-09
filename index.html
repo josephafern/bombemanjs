@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="./favicon.png">
+    <link rel="stylesheet" href="./dist/style.css">
+    <link rel="icon" href="./dist/favicon.png">
     <title>BombermanJS</title>
 </head>
 
 <body id='body'>
-    <script src="./main.js"></script>
+    <script src="./dist/main.js"></script>
     <h3 id='header'><a id='home' href="./index.html">&nbsp;&nbsp;BombermanJS</a> &nbsp;&nbsp;
         <div id="mute">Mute</div>
     </h3>
     <div id="splash-screen">
-        <img id='logo' src="./logo.png" width=600 height=200>
+        <img id='logo' src="./dist/logo.png" width=600 height=200>
         <p id='signature'>A JavaScript Project by <span>Joey Fernandez</span></p>
         <span>
-            <a href='https://www.linkedin.com/in/joseph-fernandez-5936716a/'><img src='./github.png' width=40 height=40></a>
-            <a href='https://github.com/josephafern'><img src='./linkedin.png' width=44 height=44></a>
+            <a href='https://www.linkedin.com/in/joseph-fernandez-5936716a/'><img src='./dist/github.png' width=40 height=40></a>
+            <a href='https://github.com/josephafern'><img src='./dist/linkedin.png' width=44 height=44></a>
         </span>
         <div class='enter-btn' id="enter-btn">Enter</div>
 
@@ -52,10 +52,10 @@
     <canvas id='background'></canvas>
 
     <div id='game-over'>
-        <img id='gameover-img' src="./game-over-1.png">
+        <img id='gameover-img' src="./dist/game-over-1.png">
     </div>
     <audio id="theme-song" autoplay loop>
-        <source src="./bomberman.mp3" type='audio/mp3'>
+        <source src="./dist/bomberman.mp3" type='audio/mp3'>
     </audio>
     <script>
         document.getElementById('theme-song').volume = 0.25;

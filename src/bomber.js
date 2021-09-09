@@ -38,7 +38,7 @@ Bomber.prototype.dropBomb = function(ctx){
         let y = this.pos[1];
         let img = new Image();
         let that = this;
-        img.src = '../dist/bomb.png';
+        img.src = './dist/bomb.png';
         let bomb = new Bomb([x, y], img)
         this.bombDropped = true;
         this.board.bombs.push(bomb);
