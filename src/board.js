@@ -21,6 +21,7 @@ function Board(){
   this.field_blocks = [];
   this.bricks = BRICK_PRESETS.one;
   this.gameOver = false;
+  this.finished = false;
   this.instantiateFlames();
   this.instantiateBrick();
 }
@@ -181,7 +182,10 @@ Board.prototype.endGame = function (bombers) {
   } else {
     words.innerText = this.oppositeColor(bombers[0].color) + ' Bomber is the winner!!';
   }
-  ele3.append(words);
+  if (!this.finished){
+    ele3.append(words);
+    this.finished = true;
+  } 
   setInterval(() => {
     let img = document.getElementById('gameover-img');
     let next = IMGS.shift();
