@@ -1,11 +1,12 @@
 
 
 const BOMB_VECS = [[50, 0], [-50, 0], [0, 50], [0, -50]];
+const POWERED = [[100, 0], [-100, 0], [0, 100], [0, -100]];
 const BRICK_PRESETS = {
   one: [[50, 100], [50, 150], [50, 200], [100, 150], [150, 150], [100, 250],
   [450, 500], [350, 450], [350, 50], [700, 150], [650, 150], [650, 100],
   [150, 550], [150, 500], [150, 450], [200, 450], [50, 250], [250, 450],
-  [300, 250], [350, 250], [400, 250], [350, 200], [350, 300], [450, 550],
+  [300, 250], [400, 250], [350, 200], [350, 300], [450, 550],
   [500, 550], [550, 550], [600, 550], [450, 400], [450, 350], [500, 350],
   [550, 350], [550, 300], [200,50], [250, 50], [250, 100], [250,150], [200, 150],
   [350, 100], [750, 400], [750, 450], [700, 450], [650, 450], [550, 250], [600, 250],
@@ -19,11 +20,13 @@ function Board(){
   this.bombs = [];
   this.flames = [];
   this.field_blocks = [];
+  this.powerUps = [[350, 250]];
   this.bricks = BRICK_PRESETS.one;
   this.gameOver = false;
   this.finished = false;
   this.instantiateFlames();
   this.instantiateBrick();
+  this.instantiatePowerUp();
 }
 
 Board.prototype.draw = function(ctx){
@@ -33,6 +36,9 @@ Board.prototype.draw = function(ctx){
   });
   this.bricks.forEach(brick => {
     ctx.drawImage(this.brickImg, brick[0], brick[1], 50, 50);
+  });
+  this.powerUps.forEach(powerUp => {
+    ctx.drawImage(this.powerUpImg, powerUp[0], powerUp[1], 50, 50);
   });
   if (this.flames.length){
     this.flames.forEach(flame => {
@@ -58,6 +64,12 @@ Board.prototype.instantiateFlames = function(){
   let img = new Image();
   img.src = './dist/explosion.png';
   this.flameImg = img;
+}
+
+Board.prototype.instantiatePowerUp = function(){
+  let img = new Image();
+  img.src = './dist/fire.png';
+  this.powerUpImg = img;
 }
 
 Board.prototype.initializeBoard = function(ctx){
@@ -116,10 +128,10 @@ Board.prototype.removeBomber = function(color){
 
 
 
-Board.prototype.isExploded = function(bombPos) {
+Board.prototype.isExploded = function(bombPos, poweredUp) {
   let dead = [];
   let that = this;
-  let bombRange = this.calculateBombRange(bombPos)
+  let bombRange = this.calculateBombRange(bombPos, poweredUp);
   this.removeBricks(bombRange);
   this.flames = bombRange;
   bombRange.push(bombPos);
@@ -146,9 +158,19 @@ Board.prototype.removeBricks = function(bombRange){
   });
 }
 
-Board.prototype.calculateBombRange = function(bombPos) {
+Board.prototype.removePowerUp = function(){
+  this.powerUps.pop();
+}
+
+Board.prototype.calculateBombRange = function(bombPos, poweredUp) {
   let that = this;
-  let newPosArr = BOMB_VECS.map(vec => {
+  let fullArr;
+  if (poweredUp) {
+    fullArr = BOMB_VECS.concat(POWERED);
+  } else {
+    fullArr = BOMB_VECS;
+  }
+  let newPosArr = fullArr.map(vec => {
     let x = vec[0] + bombPos[0];
     let y = vec[1] + bombPos[1];
     return [x, y];

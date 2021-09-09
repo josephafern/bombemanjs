@@ -7,6 +7,7 @@ function Bomber(info){
     this.color = info.color;
     this.board = info.board;
     this.bombDropped = false;
+    this.poweredUp = false;
 }
 
 Bomber.prototype.draw = function(context){ 
@@ -26,8 +27,14 @@ Bomber.prototype.move = function(pos){
     let newX = this.pos[0] + pos[0];
     let newY = this.pos[1] + pos[1];
     if (this.board.validMove([newX, newY], this.board.bricks, this.board.bombPositions())){
-        this.pos[0] += pos[0];
-        this.pos[1] += pos[1];
+        this.pos = [newX, newY];
+        if (this.board.samePos(this.pos, [350, 250])){
+         this.poweredUp = true;
+         this.board.removePowerUp();
+         setTimeout(() => {
+             this.poweredUp = false;
+         }, 30000);  
+        }
     }
    
 }
@@ -45,7 +52,7 @@ Bomber.prototype.dropBomb = function(ctx){
         setTimeout(() => {
             let bomb = that.board.bombs.shift();
             bomb.style = 'display:none';
-            let dead = that.board.isExploded(bomb.pos);
+            let dead = that.board.isExploded(bomb.pos, this.poweredUp);
             if (dead.length) {
                 that.board.endGame(dead);
             }
