@@ -46,6 +46,7 @@ Board.prototype.draw = function(ctx){
   });
   if (this.flames.length){
     this.flames.forEach(flame => {
+      
       ctx.drawImage(this.flameImg, flame[0], flame[1], 50, 50);
     });
     exp_sound.play();
