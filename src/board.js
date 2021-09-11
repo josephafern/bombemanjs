@@ -14,9 +14,11 @@ const BRICK_PRESETS = {
 };
 const IMGS = ['./dist/game-over-1.png', './dist/game-over-2.png'];
 
-const exp_sound = new Audio('./dist/exp_sound.mp3');
-exp_sound.id = 'exp-sound';
-exp_sound.volume = 0.05;
+const exp_sound1 = new Audio('./dist/exp_sound.mp3');
+exp_sound1.volume = 0.05;
+const exp_sound2 = new Audio('./dist/exp_sound.mp3');
+exp_sound2.volume = 0.05;
+const SOUND_ARRAY = [exp_sound1, exp_sound2];
 
 function Board(){
   this.walls = [];
@@ -49,7 +51,9 @@ Board.prototype.draw = function(ctx){
       
       ctx.drawImage(this.flameImg, flame[0], flame[1], 50, 50);
     });
-    exp_sound.play();
+    let sound = SOUND_ARRAY.shift();
+    sound.play();
+    SOUND_ARRAY.push(sound);
     setTimeout(() => {
       this.flames = [];
       this.draw(ctx);
@@ -124,7 +128,7 @@ Board.prototype.initializeBoard = function(ctx){
 }
 
 Board.prototype.audioObj = function(){
-  return exp_sound;
+  return [exp_sound1, exp_sound2];
 }
 
 Board.prototype.addBomber = function(bomber){
