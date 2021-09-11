@@ -74,16 +74,17 @@ document.addEventListener('click', (e) => {
         board.runLoop(robot, ctx);
     } else if (e.target.id === 'mute') {
         let ele = document.getElementById('theme-song');
-        let arr = board.audioObj();
+        let ele2 = bomber.audioObj();
+        let ele3 = robot.audioObj();
         let vol = ele.volume;
         if (vol) {
             ele.volume = 0.0;
-            arr[0].volume = 0.0;
-            arr[1].volume = 0.0;
+            ele2.volume = 0.0;
+            ele3.volume = 0.0;
         } else {
             ele.volume = 0.15;
-            arr[0].volume = 0.05;
-            arr[1].volume = 0.05;
+            ele2.volume = 0.05;
+            ele3.volume = 0.05;
         }
     } else if (e.target.id === 'enter-btn'){
         let ele = document.getElementById('splash-screen');

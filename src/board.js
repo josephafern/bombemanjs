@@ -16,15 +16,14 @@ const IMGS = ['./dist/game-over-1.png', './dist/game-over-2.png'];
 
 const exp_sound1 = new Audio('./dist/exp_sound.mp3');
 exp_sound1.volume = 0.05;
-const exp_sound2 = new Audio('./dist/exp_sound.mp3');
-exp_sound2.volume = 0.05;
-const SOUND_ARRAY = [exp_sound1, exp_sound2];
+
 
 function Board(){
   this.walls = [];
   this.bombers = [];
   this.bombs = [];
   this.flames = [];
+  this.flamesIdx = [];
   this.field_blocks = [];
   this.powerUps = [[350, 250]];
   this.bricks = BRICK_PRESETS.one;
@@ -51,11 +50,11 @@ Board.prototype.draw = function(ctx){
       
       ctx.drawImage(this.flameImg, flame[0], flame[1], 50, 50);
     });
-    let sound = SOUND_ARRAY.shift();
-    sound.play();
-    SOUND_ARRAY.push(sound);
+    
+    
     setTimeout(() => {
-      this.flames = [];
+      let num = this.flamesIdx.shift();
+      this.flames = this.flames.slice(num);
       this.draw(ctx);
     }, 300);
   }
@@ -127,10 +126,6 @@ Board.prototype.initializeBoard = function(ctx){
   }
 }
 
-Board.prototype.audioObj = function(){
-  return [exp_sound1, exp_sound2];
-}
-
 Board.prototype.addBomber = function(bomber){
   this.bombers.push(bomber);
   return this;
@@ -147,8 +142,9 @@ Board.prototype.isExploded = function(bombPos, poweredUp) {
   let that = this;
   let bombRange = this.calculateBombRange(bombPos, poweredUp);
   this.removeBricks(bombRange);
-  this.flames = bombRange;
   bombRange.push(bombPos);
+  this.flames = this.flames.concat(bombRange);
+  this.flamesIdx.push(bombRange.length);
   bombRange.forEach(pos => {
     that.bombers.forEach(bomber => {
       if (pos[0] === bomber.pos[0] && pos[1] === bomber.pos[1]) {
@@ -298,7 +294,6 @@ Board.prototype.vectoredPositions = function(bomber){
 Board.prototype.runLoop = function (bomber, ctx) {
   setInterval(() => {
     if (this.gameOver) return;
-    console.log('hit')
     let moves = this.availableMoves(bomber);
     let move;
     while (true) {

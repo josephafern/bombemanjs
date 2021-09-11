@@ -2,12 +2,15 @@ const Bomb = require('./bomb.js');
 
 const BOMB_VECS = [[50, 0], [-50, 0], [0, 50], [0, -50]];
 
+
 function Bomber(info){
     this.pos = info.pos;
     this.color = info.color;
     this.board = info.board;
     this.bombDropped = false;
     this.poweredUp = false;
+    this.exp_sound = new Audio('./dist/exp_sound.mp3');
+    this.exp_sound.volume = 0.05;
 }
 
 Bomber.prototype.draw = function(context){ 
@@ -58,8 +61,13 @@ Bomber.prototype.dropBomb = function(ctx){
             }
             this.bombDropped = false;
             that.board.draw(ctx);
+            this.exp_sound.play();
         }, 3000);
     }
+}
+
+Bomber.prototype.audioObj = function () {
+    return this.exp_sound;
 }
 
 module.exports = Bomber;
