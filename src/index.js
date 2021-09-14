@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     board.addBomber(bomber).addBomber(robot);
     board.initializeBoard(backCtx);
     board.draw(ctx);
-    soundtrack.volume = 0.1;
+    soundtrack.volume = 0.15;
     soundtrack.loop = true;
     soundtrack.play();
 });
@@ -77,16 +77,14 @@ document.addEventListener('click', (e) => {
         board.draw(ctx);
         board.runLoop(robot, ctx);
     } else if (e.target.id === 'mute') {
-        let ele = document.getElementById('theme-song');
         let ele2 = bomber.audioObj();
         let ele3 = robot.audioObj();
-        let vol = ele.volume;
-        if (vol) {
-            ele.volume = 0.0;
+        if (soundtrack.volume) {
+            soundtrack.volume = 0.0;
             ele2.volume = 0.0;
             ele3.volume = 0.0;
         } else {
-            ele.volume = 0.15;
+            soundtrack.volume = 0.15;
             ele2.volume = 0.05;
             ele3.volume = 0.05;
         }
