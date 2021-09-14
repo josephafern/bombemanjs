@@ -7,6 +7,8 @@ let bomber;
 let robot;
 let started;
 
+let soundtrack = new Audio('../dist/bomberman.mp3');
+
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("game-canvas");
     const ctx = canvas.getContext("2d");
@@ -25,7 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
     board.addBomber(bomber).addBomber(robot);
     board.initializeBoard(backCtx);
     board.draw(ctx);
-    
+    soundtrack.volume = 0.1;
+    soundtrack.loop = true;
+    soundtrack.play();
 });
 
 
