@@ -46,7 +46,6 @@ Bomber.prototype.move = function(pos){
             }, 10000);
         } 
         if (this.board.samePos(this.pos, [350, 250]) && !this.alreadyUnlimited && this.board.isUnlimited()){
-            alert('here')
             this.unlimited = true;
             this.board.removeUnlimited();
             this.alreadyUnlimited = true;
