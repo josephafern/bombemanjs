@@ -26,12 +26,14 @@ function Board(){
   this.flamesIdx = [];
   this.field_blocks = [];
   this.powerUps = [[350, 250]];
+  this.unlimited = [];
   this.bricks = BRICK_PRESETS.one;
   this.gameOver = false;
   this.finished = false;
   this.instantiateFlames();
   this.instantiateBrick();
   this.instantiatePowerUp();
+  this.instantiateUnlimited();
 }
 
 Board.prototype.draw = function(ctx){
@@ -44,6 +46,9 @@ Board.prototype.draw = function(ctx){
   });
   this.powerUps.forEach(powerUp => {
     ctx.drawImage(this.powerUpImg, powerUp[0], powerUp[1], 50, 50);
+  });
+  this.unlimited.forEach(powerUp => {
+    ctx.drawImage(this.unlimitedImg, powerUp[0], powerUp[1], 50, 50);
   });
   if (this.flames.length){
     this.flames.forEach(flame => {
@@ -79,6 +84,12 @@ Board.prototype.instantiatePowerUp = function(){
   let img = new Image();
   img.src = './dist/fire.png';
   this.powerUpImg = img;
+}
+
+Board.prototype.instantiateUnlimited = function(){
+  let img = new Image();
+  img.src = './dist/bomb-power.png';
+  this.unlimitedImg = img;
 }
 
 Board.prototype.initializeBoard = function(ctx){
@@ -170,6 +181,18 @@ Board.prototype.removeBricks = function(bombRange){
 
 Board.prototype.removePowerUp = function(){
   this.powerUps.pop();
+}
+
+Board.prototype.removeUnlimited = function(){
+  this.unlimited.pop();
+}
+
+Board.prototype.addUnlimited = function(){
+  this.unlimited.push([350, 250]);
+}
+
+Board.prototype.isUnlimited = function(){
+  return this.unlimited.length > 0;
 }
 
 Board.prototype.calculateBombRange = function(bombPos, poweredUp) {

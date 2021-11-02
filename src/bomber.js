@@ -9,8 +9,11 @@ function Bomber(info){
     this.board = info.board;
     this.bombDropped = false;
     this.poweredUp = false;
+    this.unlimited = false;
     this.exp_sound = new Audio('./dist/exp_sound.mp3');
     this.exp_sound.volume = 0.05;
+    this.alreadyPowered = false;
+    this.alreadyUnlimited = false;
 }
 
 Bomber.prototype.draw = function(context){ 
@@ -31,13 +34,27 @@ Bomber.prototype.move = function(pos){
     let newY = this.pos[1] + pos[1];
     if (this.board.validMove([newX, newY], this.board.bricks, this.board.bombPositions())){
         this.pos = [newX, newY];
-        if (this.board.samePos(this.pos, [350, 250])){
-         this.poweredUp = true;
-         this.board.removePowerUp();
-         setTimeout(() => {
-             this.poweredUp = false;
-         }, 30000);  
+        if (this.board.samePos(this.pos, [350, 250]) && !this.alreadyPowered){
+            this.poweredUp = true;
+            this.board.removePowerUp();
+            this.alreadyPowered = true;
+            setTimeout(() => {
+                this.poweredUp = false;
+            }, 30000);
+            setTimeout(() => {
+                this.board.addUnlimited();
+            }, 10000);
+        } 
+        if (this.board.samePos(this.pos, [350, 250]) && !this.alreadyUnlimited && this.board.isUnlimited()){
+            alert('here')
+            this.unlimited = true;
+            this.board.removeUnlimited();
+            this.alreadyUnlimited = true;
+            setTimeout(() => {
+                this.unlimited = false;
+            }, 30000);
         }
+        
     }
    
 }
@@ -50,7 +67,7 @@ Bomber.prototype.dropBomb = function(ctx){
         let that = this;
         img.src = './dist/bomb.png';
         let bomb = new Bomb([x, y], img)
-        this.bombDropped = true;
+        if (!this.unlimited) this.bombDropped = true;
         this.board.bombs.push(bomb);
         setTimeout(() => {
             let bomb = that.board.bombs.shift();
