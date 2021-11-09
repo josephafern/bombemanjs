@@ -261,6 +261,11 @@ Board.prototype.endGame = function (bombers) {
   }
   if (!this.finished){
     ele3.append(words);
+    let replay = document.createElement('a');
+    replay.className = 'replay-btn';
+    replay.href = './index.html';
+    replay.innerText = 'Play again?';
+    ele3.append(replay);
     this.finished = true;
     setInterval(() => {
       let img = document.getElementById('gameover-img');

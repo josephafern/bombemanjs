@@ -80,7 +80,7 @@ span a {
     border: 3px solid rgb(0, 79, 79);
     border-radius: 10px;
     color: rgb(0, 79, 79);
-    width: 35px;
+    width: 45px;
     height: 20px;
     padding-bottom: 4px;
     padding-left: 5px;
@@ -174,4 +174,24 @@ ul {
 
 body {
     margin: 0;
+}
+
+.replay-btn {
+    text-decoration: none;
+    font-family: 'Noteworthy', sans-serif;
+    color: teal;
+    border: 3px solid teal;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 80px;
+    margin: 0 auto;
+    padding: 2px 5px;
+}
+
+.replay-btn:hover {
+    color: white;
+    background-color: teal;
 }

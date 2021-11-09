@@ -80,10 +80,14 @@ document.addEventListener('click', (e) => {
             ele.volume = 0.0;
             ele2.volume = 0.0;
             ele3.volume = 0.0;
+            let muteBtn = document.getElementById('mute');
+            muteBtn.innerText = 'Unmute'
         } else {
             ele.volume = 0.15;
             ele2.volume = 0.05;
             ele3.volume = 0.05;
+            let muteBtn = document.getElementById('mute');
+            muteBtn.innerText = 'Mute'
         }
     } else if (e.target.id === 'enter-btn'){
         let ele = document.getElementById('splash-screen');
