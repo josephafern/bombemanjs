@@ -77,7 +77,8 @@ Bomber.prototype.dropBomb = function(ctx){
             }
             this.bombDropped = false;
             that.board.draw(ctx);
-            this.exp_sound.play();
+            let muteBtn = document.getElementById('mute');
+            if (muteBtn.innerText === 'Mute') this.exp_sound.play();
         }, 3000);
     }
 }

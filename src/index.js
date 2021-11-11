@@ -6,14 +6,18 @@ let board;
 let bomber;
 let robot;
 let started;
+let canvas;
+let ctx;
+let background;
+let backCtx;
 
 document.addEventListener("DOMContentLoaded", function () {
-    const canvas = document.getElementById("game-canvas");
-    const ctx = canvas.getContext("2d");
+    canvas = document.getElementById("game-canvas");
+    ctx = canvas.getContext("2d");
     canvas.width = 850;
     canvas.height = 650;
-    const background = document.getElementById("background");
-    const backCtx = background.getContext("2d");
+    background = document.getElementById("background");
+    backCtx = background.getContext("2d");
     background.width = 850;
     background.height = 650;
     started = false;
@@ -76,17 +80,16 @@ document.addEventListener('click', (e) => {
         let ele2 = bomber.audioObj();
         let ele3 = robot.audioObj();
         let vol = ele.volume;
-        if (vol) {
+        let muteBtn = document.getElementById('mute');
+        if (muteBtn.innerText === 'Mute') {
             ele.volume = 0.0;
             ele2.volume = 0.0;
             ele3.volume = 0.0;
-            let muteBtn = document.getElementById('mute');
             muteBtn.innerText = 'Unmute'
         } else {
             ele.volume = 0.15;
             ele2.volume = 0.05;
             ele3.volume = 0.05;
-            let muteBtn = document.getElementById('mute');
             muteBtn.innerText = 'Mute'
         }
     } else if (e.target.id === 'enter-btn'){
@@ -94,5 +97,24 @@ document.addEventListener('click', (e) => {
         let ele2 = document.getElementById('instructions');
         ele.style = 'display: none';
         ele2.style = 'display: block';
+    } else if (e.target.id === 'replay-btn'){
+        let ele = document.getElementById('game-over');
+        let ele2 = document.getElementById('game-canvas');
+        let ele3 = document.getElementById('background');
+        ele.style = 'display: none';
+        ele2.style = 'display: block';
+        ele3.style = 'display: block';
+        ele.innerHTML = "";
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        backCtx.clearRect(0, 0, canvas.width, canvas.height);
+        board = new Board();
+        bomber = new Bomber({ pos: [50, 50], color: 'White', board: board });
+        robot = new RobotBomber({ pos: [750, 550], color: 'Black', board: board });
+        bomber.createBomber('./dist/bomber.png');
+        robot.createBomber('./dist/bomber2.png');
+        board.addBomber(bomber).addBomber(robot);
+        board.initializeBoard(backCtx);
+        board.draw(ctx); 
+        board.runLoop(robot, ctx);
     }
 })

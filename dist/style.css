@@ -176,7 +176,7 @@ body {
     margin: 0;
 }
 
-.replay-btn {
+#replay-btn {
     text-decoration: none;
     font-family: 'Noteworthy', sans-serif;
     color: teal;
@@ -191,7 +191,8 @@ body {
     padding: 2px 5px;
 }
 
-.replay-btn:hover {
+#replay-btn:hover {
     color: white;
     background-color: teal;
+    cursor: pointer;
 }

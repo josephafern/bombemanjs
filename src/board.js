@@ -9,7 +9,7 @@ const BRICK_PRESETS = {
   [300, 250], [400, 250], [350, 200], [350, 300], [450, 550],
   [500, 550], [550, 550], [450, 400], [450, 350], [500, 350],
   [550, 350], [550, 300], [200,50], [250, 50], [250, 100], [250,150], [200, 150],
-  [350, 100], [750, 400], [750, 450], [700, 450], [650, 450], [550, 250], [600, 250],
+  [350, 100], [750, 400], [550, 250], [600, 250],
   [650, 250], [650, 250], [700,250], [750, 250]]
 };
 const IMGS = ['./dist/game-over-1.png', './dist/game-over-2.png'];
@@ -261,9 +261,8 @@ Board.prototype.endGame = function (bombers) {
   }
   if (!this.finished){
     ele3.append(words);
-    let replay = document.createElement('a');
-    replay.className = 'replay-btn';
-    replay.href = './index.html';
+    let replay = document.createElement('div');
+    replay.id = 'replay-btn';
     replay.innerText = 'Play again?';
     ele3.append(replay);
     this.finished = true;
