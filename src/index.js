@@ -12,6 +12,7 @@ let background;
 let backCtx;
 
 document.addEventListener("DOMContentLoaded", function () {
+    console.log(window.location.href);
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
     canvas.width = 850;
