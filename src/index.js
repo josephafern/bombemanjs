@@ -12,7 +12,7 @@ let background;
 let backCtx;
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log(window.location.href === 'https://josephafern.github.io/bombermanjs/'){
+    if (window.location.href === 'https://josephafern.github.io/bombermanjs/'){
         window.location.href = 'https://josephafern.github.io/bombermanjs/index.html'
     };
     canvas = document.getElementById("game-canvas");
