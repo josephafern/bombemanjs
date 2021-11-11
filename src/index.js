@@ -13,7 +13,7 @@ let backCtx;
 
 document.addEventListener("DOMContentLoaded", function () {
     if (window.location.href === 'https://josephafern.github.io/bombermanjs/'){
-        window.location.href = 'https://josephafern.github.io/bombermanjs/index.html'
+        window.location.href = 'index.html'
     };
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
@@ -107,7 +107,7 @@ document.addEventListener('click', (e) => {
         ele.style = 'display: none';
         ele2.style = 'display: block';
         ele3.style = 'display: block';
-        ele.innerHTML = "";
+        ele.innerHTML = null;
         ctx.clearRect(0,0, canvas.width, canvas.height);
         backCtx.clearRect(0, 0, canvas.width, canvas.height);
         board = new Board();

@@ -93,6 +93,7 @@ Board.prototype.instantiateUnlimited = function(){
 }
 
 Board.prototype.initializeBoard = function(ctx){
+  this.finished = false;
   for (let i = 0; i < 16; i++) {
     this.field_blocks.push([i * 50, 0]);
     let char = new Image();
@@ -253,6 +254,9 @@ Board.prototype.endGame = function (bombers) {
   ele2.style = 'display: none';
   ele3.style = 'display: block';
   let words = document.createElement('p');
+  let OImg = document.createElement('img');
+  OImg.id = 'gameover-img'; 
+  OImg.src = "./dist/game-over-1.png";
   words.style = 'font-family: Noteworthy, sans-serif; font-size: 20px; color: teal;';
   if (bombers.length > 1) {
     words.innerText = 'It\'s a draw!!'
@@ -260,18 +264,13 @@ Board.prototype.endGame = function (bombers) {
     words.innerText = this.oppositeColor(bombers[0].color) + ' Bomber is the winner!!';
   }
   if (!this.finished){
+    ele3.append(OImg);
     ele3.append(words);
     let replay = document.createElement('div');
     replay.id = 'replay-btn';
     replay.innerText = 'Play again?';
     ele3.append(replay);
     this.finished = true;
-    setInterval(() => {
-      let img = document.getElementById('gameover-img');
-      let next = IMGS.shift();
-      img.src = next;
-      IMGS.push(next);
-    }, 750);
   } 
 }
 
