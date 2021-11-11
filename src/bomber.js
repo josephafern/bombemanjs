@@ -69,16 +69,18 @@ Bomber.prototype.dropBomb = function(ctx){
         if (!this.unlimited) this.bombDropped = true;
         this.board.bombs.push(bomb);
         setTimeout(() => {
-            let bomb = that.board.bombs.shift();
-            bomb.style = 'display:none';
-            let dead = that.board.isExploded(bomb.pos, this.poweredUp);
-            if (dead.length) {
-                that.board.endGame(dead);
+            if (!that.board.gameOver){
+                let bomb = that.board.bombs.shift();
+                bomb.style = 'display:none';
+                let dead = that.board.isExploded(bomb.pos, this.poweredUp);
+                if (dead.length) {
+                    that.board.endGame(dead);
+                }
+                this.bombDropped = false;
+                that.board.draw(ctx);
+                let muteBtn = document.getElementById('mute');
+                if (muteBtn.innerText === 'Mute') this.exp_sound.play();
             }
-            this.bombDropped = false;
-            that.board.draw(ctx);
-            let muteBtn = document.getElementById('mute');
-            if (muteBtn.innerText === 'Mute') this.exp_sound.play();
         }, 3000);
     }
 }

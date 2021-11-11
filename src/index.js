@@ -12,9 +12,6 @@ let background;
 let backCtx;
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (window.location.href === 'https://josephafern.github.io/bombermanjs/'){
-        window.location.href = 'index.html'
-    };
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
     canvas.width = 850;
@@ -104,9 +101,7 @@ document.addEventListener('click', (e) => {
         let ele = document.getElementById('game-over');
         let ele2 = document.getElementById('game-canvas');
         let ele3 = document.getElementById('background');
-        ele.style = 'display: none';
-        ele2.style = 'display: block';
-        ele3.style = 'display: block';
+        
         ele.innerHTML = null;
         ctx.clearRect(0,0, canvas.width, canvas.height);
         backCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -117,7 +112,10 @@ document.addEventListener('click', (e) => {
         robot.createBomber('./dist/bomber2.png');
         board.addBomber(bomber).addBomber(robot);
         board.initializeBoard(backCtx);
-        board.draw(ctx); 
+        board.draw(ctx);
+        ele.style = 'display: none';
+        ele2.style = 'display: block';
+        ele3.style = 'display: block';
         board.runLoop(robot, ctx);
     }
 })
