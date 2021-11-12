@@ -290,13 +290,13 @@ Board.prototype.bombPositions = function () {
 Board.prototype.explosionPositions = function () {
     let danger = [];
     this.bombPositions().forEach(pos => {
-        danger.concat(this.calculateBombRange(pos));
+        danger = danger.concat(this.calculateBombRange(pos));
     });
     return danger;
 }
 
 Board.prototype.inBombRange = function (nextPos) {
-    return this.explosionPositions().some(pos => {
+  return this.explosionPositions().some(pos => {
         return pos[0] === nextPos[0] && pos[1] === nextPos[1];
     });
 }
@@ -326,8 +326,6 @@ Board.prototype.runLoop = function (bomber, ctx) {
       move = moves[getRandomInt(moves.length)]
       if (!this.inBombRange(move)) {
         break;
-      } else {
-        alert(move)
       }
     }
     if (move) {
