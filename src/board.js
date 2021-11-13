@@ -322,9 +322,10 @@ Board.prototype.runLoop = function (bomber, ctx) {
     if (this.gameOver) return;
     let moves = this.availableMoves(bomber);
     let move;
-    while (true) {
-      move = moves[getRandomInt(moves.length)]
-      if (!this.inBombRange(move)) {
+    for (let i = 0; i < 8; i++){
+      nextMove = moves[getRandomInt(moves.length)];
+      if (!this.inBombRange(nextMove)) {
+        move = nextMove;
         break;
       }
     }
