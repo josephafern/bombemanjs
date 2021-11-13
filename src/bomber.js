@@ -34,10 +34,10 @@ Bomber.prototype.move = function(pos){
     let newY = this.pos[1] + pos[1];
     if (this.board.validMove([newX, newY], this.board.bricks, this.board.bombPositions())){
         this.pos = [newX, newY];
-        if (this.board.samePos(this.pos, [350, 250]) && !this.alreadyPowered){
+        if (this.board.samePos(this.pos, [350, 250]) && !this.board.alreadyPowered){
             this.poweredUp = true;
             this.board.removePowerUp();
-            this.alreadyPowered = true;
+            this.board.alreadyPowered = true;
             setTimeout(() => {
                 this.poweredUp = false;
             }, 30000);
@@ -45,10 +45,10 @@ Bomber.prototype.move = function(pos){
                 this.board.addUnlimited();
             }, 10000);
         } 
-        if (this.board.samePos(this.pos, [350, 250]) && !this.alreadyUnlimited && this.board.isUnlimited()){
+        if (this.board.samePos(this.pos, [350, 250]) && !this.board.alreadyUnlimited && this.board.isUnlimited()){
             this.unlimited = true;
             this.board.removeUnlimited();
-            this.alreadyUnlimited = true;
+            this.board.alreadyUnlimited = true;
             setTimeout(() => {
                 this.unlimited = false;
             }, 30000);

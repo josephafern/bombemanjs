@@ -30,6 +30,8 @@ function Board(){
   this.bricks = BRICK_PRESETS.one;
   this.gameOver = false;
   this.finished = false;
+  this.alreadyPowered = false;
+  this.alreadyUnlimited = false;
   this.instantiateFlames();
   this.instantiateBrick();
   this.instantiatePowerUp();
