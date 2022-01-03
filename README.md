@@ -1,5 +1,3 @@
-BombermanJS
-
 Background
 
 I will be recreating the classic Nintendo game Bomberman. The 2D game will consist of one player, whose movement and actions are key-responsive, vs an AI where the objective is to drop bombs that explode after a delay and eliminate your opponent by catching them in one of your explosions. The AI will use the player’s current location and location of all currently dropped bombs to decide where to move and when to drop a bomb. When a player is in range of a bomb explosion when the bomb detonates (after a setTimeout), then that player is eliminated and the game is over. I will also attempt to implement a timer that will end the game as a draw if no player eliminated the other within the time allotted. 
@@ -8,7 +6,7 @@ I plan on utilizing Canvas to render images to the screen and DOM manipulation t
 
 Functionality & MVP
 
-The project will include:
+The project includes:
 	
 	-Players that move NSEW at the touch of a key
 	-Clickable Enter and Start buttons
@@ -19,13 +17,12 @@ The project will include:
 	-Blocks that are impassible
 	-Blocks that are destroyable and passible
 
-The project will also include:
+The project also includes:
 	
 	-Background music
 	-Time-randomized, bomb-enhancing power-ups
 	-AI Computer Player
 	-Game instructions
-	-A READ.me
 
 Technologies
 
